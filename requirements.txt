@@ -1,7 +1,5 @@
 streamlit
-opencv-python
-mediapipe
-numpy
 pandas
 matplotlib
 scikit-learn
+numpy
