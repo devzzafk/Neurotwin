@@ -1,27 +1,24 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from tracker import run_tracker
-from analysis import save_session, load_data, predict_best_hour
+from analysis import load_data, predict_best_hour
 
 st.title("🧠 NeuroTwin – Cognitive Digital Twin")
 
-if st.button("Start 30s Focus Session"):
-    st.write("Tracking...")
-    data = run_tracker(30)
-    save_session(data)
-    st.success("Session Saved!")
-    st.write(data)
+st.write("This dashboard analyzes historical focus sessions.")
 
 df = load_data()
 
-if not df.empty:
-    st.subheader("Focus Trend")
+if df.empty:
+    st.warning("No session data found. Run tracker locally to generate sessions.")
+else:
+    st.subheader("Focus Trend Over Sessions")
+
     plt.figure()
     plt.plot(df["focus_score"])
     plt.xlabel("Session")
     plt.ylabel("Focus Score")
     st.pyplot(plt)
 
-    st.subheader("Prediction")
+    st.subheader("Best Focus Hour Prediction")
     st.write(predict_best_hour(df))
