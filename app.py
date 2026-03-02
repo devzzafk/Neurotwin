@@ -1,24 +1,28 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from analysis import load_data, predict_best_hour
+from sklearn.linear_model import LinearRegression
+import numpy as np
 
-st.title("🧠 NeuroTwin – Cognitive Digital Twin")
+st.title("NeuroTwin – Cognitive Digital Twin Dashboard")
 
-st.write("This dashboard analyzes historical focus sessions.")
-
-df = load_data()
+df = pd.read_csv("data/sessions.csv")
 
 if df.empty:
-    st.warning("No session data found. Run tracker locally to generate sessions.")
+    st.write("No session data found.")
 else:
-    st.subheader("Focus Trend Over Sessions")
-
-    plt.figure()
+    st.subheader("Focus Score Trend")
     plt.plot(df["focus_score"])
-    plt.xlabel("Session")
+    plt.xlabel("Session Index")
     plt.ylabel("Focus Score")
-    st.pyplot(plt)
+    st.pyplot()
 
-    st.subheader("Best Focus Hour Prediction")
-    st.write(predict_best_hour(df))
+    st.subheader("Predicted Best Focus Hour")
+    df["hour"] = pd.to_datetime(df["timestamp"]).dt.hour
+    X = df[["hour"]]
+    y = df["focus_score"]
+    model = LinearRegression().fit(X, y)
+    hours = np.arange(0, 24).reshape(-1, 1)
+    predictions = model.predict(hours)
+    best = hours[np.argmax(predictions)][0]
+    st.write(f"Best predicted focus hour: {best}:00")
