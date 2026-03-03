@@ -1,5 +1,6 @@
 streamlit
-pandas
-matplotlib
-scikit-learn
+streamlit-webrtc
+mediapipe
+opencv-python-headless
 numpy
+av
