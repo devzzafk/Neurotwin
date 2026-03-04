@@ -1,1 +1,11 @@
+Artificial intelligence enables machines to simulate human intelligence.
 
+Machine learning is a subset of AI focused on learning patterns from data.
+
+Deep learning uses neural networks with many layers.
+
+Hybrid search combines lexical search and semantic search techniques.
+
+Vector embeddings represent text meaning in high-dimensional space.
+
+TF-IDF measures word importance based on frequency.
